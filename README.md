@@ -76,13 +76,13 @@ The playbook implements the following tasks:
 	* python3-pip
 	* docker (python pip module)
 	
-    ![ELK_Services](Images/ELK-Services.PNG)
+    ![ELK_Services](Images/ELK_Services.PNG)
 - Increases memory via systemctl, setting the value to '262144'
 	
     ![systemctl_memory](Images/systemctl_memory.PNG)
 - Downloads and launches elk container and maps to these ports: 5601, 9200, 5044 
 	
-	![ELK-Ports](Images/ELK-Ports.PNG)
+	![ELK-Ports](Images/ELK_Ports.PNG)
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
