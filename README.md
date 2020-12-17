@@ -6,7 +6,7 @@ The files in this repository were used to configure the network depicted below.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the Ansible file may be used to install only certain pieces of it, such as Filebeat.
 
-  - [Ansible Playbook ELK] (D:\GitHub Lenovo\ELK-Stack\Ansible Playbook ELK.txt)
+  - [Ansible Playbook ELK] (D:\GitHub Lenovo\ELK-Stack\Ansible Playbook ELK)
   - Ansible Playbook Filebeat
   - Ansible Playbook Metricbeat
 
