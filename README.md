@@ -21,31 +21,33 @@ This document contains the following details:
 
 ### Description of the Topology
 
-The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
+The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _____, in addition to restricting _____ to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
+Load balancing ensures that the application will be highly available, in addition to restricting unauthorized access to the network.
+- _What aspect of security do load balancers protect? What is the advantage of a jump box?
+	* Load balancers distribute traffic across multiple servers, whether it is network or application traffic. This traffic distribution defends against DDoS attacks.
+	* A jump box is the hardened internet-facing server, which prevents virtual machines within its network from exposure to the public. This becomes the remote entry point to the rest of the virtual machines on the network, meaning all admins must connect through this machine prior to performing other network tasks. 
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the logs and system system traffic.
+- Filebeat watches for log files and their location, and sends this information to Logstash or Elasticsearch to be indexed.
+- Metricbeat monitors machine/service metrics.
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Jump Box | Gateway  | 10.0.0.4   | Linux            |
+| Web-1    | DVMA Server  | 10.0.0.5   | Linux            |
+| Web-2    | DVMA Server  | 10.0.0.6   | Linux            |
+| Web-3    | DVMA Server  | 10.0.0.7   | Linux            |
+| ELK      |ELK Server    | 10.2.0.4   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+- 75.168.90.239 (Public IP of local machine) 
 
 Machines within the network can only be accessed by _____.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
