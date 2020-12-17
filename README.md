@@ -77,7 +77,7 @@ The playbook implements the following tasks:
 	* docker (python pip module)
 	
     ![ELK_Services](Images/ELK_Services.PNG)
-- Increases memory via systemctl, setting the value to '262144'
+- Increases virtual memory for the virtual machine used to run ELK
 	
     ![systemctl_memory](Images/systemctl_memory.PNG)
 - Downloads and launches elk container and maps to these ports: 5601, 9200, 5044 
