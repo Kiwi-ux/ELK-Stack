@@ -47,7 +47,7 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- 75.168.90.239 (Personal IP Address) 
+- Personal IP Address 
 
 Machines within the network can only be accessed by the Jump Box, IP 10.0.0.4.
 - Which machine did you allow to access your ELK VM? What was its IP address?
@@ -70,13 +70,19 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 - you are able to manage configuration and deploy to several servers at once, all from the command line after initial playbook configuration. This makes the task of configuration not only extremely efficient, but also greatly reduces human error induced configuration variability between servers. 
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
+
 - Installs these services:
 	* docker.io
 	* python3-pip
 	* docker (python pip module)
+	
+    ![ELK_Services](Images/ELK-Services.PNG)
 - Increases memory via systemctl, setting the value to '262144'
+	
+    ![systemctl_memory](Images/systemctl_memory.PNG)
 - Downloads and launches elk container and maps to these ports: 5601, 9200, 5044 
+	
+	![ELK-Ports](Images/ELK-Ports.PNG)
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -84,25 +90,32 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- 10.0.0.5
+- 10.0.0.6
+- 10.0.0.7
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeat
+- Metricbeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat generates and organizes log files that are then forwarded to Logstash and Elasticsearch. These logs show system information, including information on changes to files and when these changes took place. 
+- Metricbeat monitors metrics at a predefined interval, gathering information from the operating system and any services run on the machine. If Metricbeat is configured to monitor a MySQL database, for example, it can track connected users, number of transactions, and cache hits. 
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the filebeat-playbook.yml file to /etc/ansible/files/.
+- Update the /etc/ansible/hosts file to include the private IP address of the ELK server in the Kibana and Elasticsearch sections of the config file. 
+- Run the playbook, and navigate to the Filebeat installation page on the ELK server GUI to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
+	* The file is called filebeat-playbook.yml. It is copied from /etc/ansible/files/filebeat-config.yml to /etc/filebeat/filebeat.yml.
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
+	* The /etc/ansible/hosts file is updated with two groups: [webservers] and [elkservers], and list under each the IP address of the machine you want updated. Then, to install ELK, the install-elk.yml file is updated to indicate the host group name you just created within the hosts file. Similarly, the filebeat-playbook.yml is updated with the group name you created in the hosts file. 
 - _Which URL do you navigate to in order to check that the ELK server is running?
+	* http://[Elk_VM_Public_IP]:5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
