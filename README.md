@@ -24,7 +24,7 @@ This document contains the following details:
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
 Load balancing ensures that the application will be highly available, in addition to restricting unauthorized access to the network.
-- _What aspect of security do load balancers protect? What is the advantage of a jump box?
+- What aspect of security do load balancers protect? What is the advantage of a jump box?
 	* Load balancers distribute traffic across multiple servers, whether it is network or application traffic. This traffic distribution defends against DDoS attacks.
 	* A jump box is the hardened internet-facing server, which prevents virtual machines within its network from exposure to the public. This becomes the remote entry point to the rest of the virtual machines on the network, meaning all admins must connect through this machine prior to performing other network tasks. 
 
@@ -58,7 +58,7 @@ A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | No                  | Personal IP          |
+| Jump Box | Yes                 | Personal IP          |
 | Web-1    | No                  | 10.0.0.4             |
 | Web-2    | No                  | 10.0.0.4             |
 | Web-3    | No                  | 10.0.0.4             |
@@ -106,16 +106,16 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the filebeat-playbook.yml file to /etc/ansible/files/.
+- Copy the playbooks to the Ansible control node. (install-elk.yml, filebeat-playbook.yml, metricbeat-playbook.yml)
 - Update the /etc/ansible/hosts file to include the private IP address of the ELK server in the Kibana and Elasticsearch sections of the config file. 
-- Run the playbook, and navigate to the Filebeat installation page on the ELK server GUI to check that the installation worked as expected.
+- Run the playbooks, and navigate to the ELK server GUI to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
+* Which file is the playbook? Where do you copy it?
 	* The file is called filebeat-playbook.yml. It is copied from /etc/ansible/files/filebeat-config.yml to /etc/filebeat/filebeat.yml.
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
+
+* Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
 	* The /etc/ansible/hosts file is updated with two groups: [webservers] and [elkservers], and list under each the IP address of the machine you want updated. Then, to install ELK, the install-elk.yml file is updated to indicate the host group name you just created within the hosts file. Similarly, the filebeat-playbook.yml is updated with the group name you created in the hosts file. 
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- Which URL do you navigate to in order to check that the ELK server is running?
 	* http://[Elk_VM_Public_IP]:5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
