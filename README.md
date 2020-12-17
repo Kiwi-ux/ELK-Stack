@@ -36,43 +36,51 @@ The configuration details of each machine may be found below.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.4   | Linux            |
-| Web-1    | DVMA Server  | 10.0.0.5   | Linux            |
-| Web-2    | DVMA Server  | 10.0.0.6   | Linux            |
-| Web-3    | DVMA Server  | 10.0.0.7   | Linux            |
-| ELK      |ELK Server    | 10.2.0.4   | Linux            |
+| Jump Box | Gateway/Ansible  | 10.0.0.4   | Linux (ubuntu 18.04)           |
+| Web-1    | Docker-DVMA  | 10.0.0.5   | Linux (ubuntu 18.04)           |
+| Web-2    | Docker-DVMA | 10.0.0.6   | Linux   (ubuntu 18.04)         |
+| Web-3    | Docker-DVMA  | 10.0.0.7   | Linux   (ubuntu 18.04)         |
+| ELK      |ELK Server    | 10.2.0.4   | Linux   (ubuntu 18.04)         |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- 75.168.90.239 (Public IP of local machine) 
+- 75.168.90.239 (Personal IP Address) 
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by the Jump Box, IP 10.0.0.4.
+- Which machine did you allow to access your ELK VM? What was its IP address?
+	* Only the Jump Box (IP 10.0.0.4) can access the ELK VM. However, the security is configured to allow TCP traffic to the ELK Server from Personal IP
+
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Jump Box | No                  | Personal IP          |
+| Web-1    | No                  | 10.0.0.4             |
+| Web-2    | No                  | 10.0.0.4             |
+| Web-3    | No                  | 10.0.0.4             |
+| Elk      | No                  | Personal IP, 10.0.0.4|
 
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+- you are able to manage configuration and deploy to several servers at once, all from the command line after initial playbook configuration. This makes the task of configuration not only extremely efficient, but also greatly reduces human error induced configuration variability between servers. 
 
 The playbook implements the following tasks:
 - _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Installs these services:
+	* docker.io
+	* python3-pip
+	* docker (python pip module)
+- Increases memory via systemctl, setting the value to '262144'
+- Downloads and launches elk container and maps to these ports: 5601, 9200, 5044 
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+[docker ps output](Images/docker_ps_output.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
